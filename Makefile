@@ -1,13 +1,13 @@
 NAME		= philo
 
-LIST		= main.c
+LIST		= parser.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
-CFLAGS		= -Wall -Werror -Wextra
+CFLAGS		= -Wall -Werror -Wextra -I includes/
 
 %.o:		%.c
-			@clang -Wall -Werror -Wextra -c $< -o $@
+			@clang $(CFLAGS) -c $< -o $@
 
 $(NAME):	$(OBJS)
 			@clang $(OBJS) -o $(NAME)
