@@ -1,4 +1,4 @@
-#include <philosophers.c>
+#include <philosophers.h>
 #include <utils.h>
 
 static t_bool	validate_argument(char const *str)
@@ -16,12 +16,21 @@ t_bool	parser_validate(int argc, char **argv)
 
 	if (argc != 5 && argc != 6)
 		return (false);
-	count = 0;
+	count = 1;
 	while (*(argv + count))
 	{
-		if (validate_argument(*(argv + count)))
+		if (!validate_argument(*(argv + count)))
 			return (false);
 		count++;
 	}
 	return (true);
+}
+
+void	parser_fetch(t_params *input, char **argv)
+{
+	input->philos = ft_strtoul(*(argv + 1));
+	input->die = ft_strtoul(*(argv + 2));
+	input->eat = ft_strtoul(*(argv + 3));
+	input->sleep = ft_strtoul(*(argv + 4));
+	input->amount = ft_strtoul(*(argv + 5));
 }

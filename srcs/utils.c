@@ -1,5 +1,6 @@
 #include <stddef.h>
 #include <philosophers.h>
+#include <unistd.h>
 
 size_t	ft_strlen(char const *str)
 {
@@ -13,7 +14,7 @@ void	ft_putstr(char const *str)
 	write(1, str, ft_strlen(str));
 }
 
-unsigned long	ft_strtoul(char const *str, char const **endp)
+unsigned long	ft_strtoul(char const *str)
 {
 	unsigned long	ret;
 
@@ -25,6 +26,5 @@ unsigned long	ft_strtoul(char const *str, char const **endp)
 		ret = ret * 10 + (*str - '0');
 		str++;
 	}
-	*endp = str;
 	return (ret);
 }
