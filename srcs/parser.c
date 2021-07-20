@@ -3,8 +3,16 @@
 
 static t_bool	validate_argument(char const *str)
 {
+	unsigned long long	ret;
+
+	ret = 0;
 	while (*str >= '0' && *str <= '9')
+	{
+		ret = ret * 10 + (*str - '0');
+		if (ret > MAX_TIMESTAMP)
+			return (false);
 		str++;
+	}
 	if (*str)
 		return (false);
 	return (true);
