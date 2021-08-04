@@ -2,3 +2,5 @@
 .env
 *.o
 philo
+a.out
+test.c

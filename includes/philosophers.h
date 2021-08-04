@@ -3,13 +3,25 @@
 
 # define MAX_TIMESTAMP 4294967295U
 
-typedef unsigned char	t_bool;
-
-enum e_bool
+typedef enum e_bool
 {
 	false,
 	true
+}	t_bool;
+
+enum e_philostatus
+{
+	THINKING,
+	EATING,
+	SLEEPING
 };
+
+typedef struct s_philo
+{
+	unsigned int		id;
+	enum e_philostatus	status;
+	struct s_philo		*next;
+}	t_philo;
 
 typedef struct s_params
 {
