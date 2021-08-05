@@ -2,6 +2,9 @@ NAME		= philo
 
 LIST		= parser.c \
 			  utils.c \
+			  init_philos.c \
+			  worker_philos.c \
+			  timestamps.c \
 			  main.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
