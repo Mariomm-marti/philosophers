@@ -6,13 +6,14 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:29:45 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 18:10:04 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/05 20:26:22 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdlib.h>
 #include <philosophers.h>
+#include <timestamps.h>
 
 t_philo	*get_philo(t_philo const *philos, unsigned int const philo_id)
 {

@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 18:28:36 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 19:15:59 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/05 19:40:03 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_timestamp	get_timestamp(t_timestamp const original_timestamp)
 	if (gettimeofday(&tp, NULL) == -1)
 		return (-1);
 	current = tp.tv_sec * 1000 + tp.tv_usec / 1000;
-	return (current);
+	return (current - original_timestamp);
 }
 
 void	initialize_timestamp(unsigned int philo_num, t_philo const *philos)

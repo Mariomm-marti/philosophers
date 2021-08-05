@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:29:56 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 18:42:24 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/05 19:41:24 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 # define MAX_TIMESTAMP 4294967295U
 
 # include <pthread.h>
-# include <timestamps.h>
+
+typedef long t_timestamp;
 
 typedef enum e_bool
 {
