@@ -1,30 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   worker_philos.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/04 19:30:21 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 18:06:11 by mmartin-         ###   ########.fr       */
+/*   Created: 2021/08/05 17:41:03 by mmartin-          #+#    #+#             */
+/*   Updated: 2021/08/05 19:17:14 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
 #include <philosophers.h>
-#include <unistd.h>
+#include <stdio.h>
 
-unsigned long	ft_strtoul(char const *str)
+void	*worker(void *self)
 {
-	unsigned long	ret;
+	t_philo const	*philo_self;
 
-	if (!str)
-		return (0);
-	ret = 0;
-	while (*str >= '0' && *str <= '9')
-	{
-		ret = ret * 10 + (*str - '0');
-		str++;
-	}
-	return (ret);
+	philo_self = (t_philo const *)self;
+	printf("[timestamp] %d is eating\n", philo_self->id);
+	return (NULL);
 }
