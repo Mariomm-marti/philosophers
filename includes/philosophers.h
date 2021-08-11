@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:29:56 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 19:41:24 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/11 13:42:31 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@
 
 # include <pthread.h>
 
-typedef long t_timestamp;
+typedef long			t_timestamp;
+typedef pthread_mutex_t	t_fork;
 
 typedef enum e_bool
 {
@@ -32,11 +33,6 @@ typedef struct s_philo
 	pthread_t			thread;
 }	t_philo;
 
-typedef struct s_fork
-{
-	pthread_mutex_t		mutex;
-}	t_fork;
-
 typedef struct s_params
 {
 	unsigned int	philos;
@@ -46,9 +42,17 @@ typedef struct s_params
 	unsigned int	sleep;
 }	t_params;
 
+typedef struct s_worker
+{
+	t_philo		*philos;
+	t_params	*params;
+	t_fork		*forks;
+}	t_worker;
+
 void		*worker(void *self);
 
-t_philo		*create_philos(unsigned int const philo_num);
+t_philo		*create_philos(unsigned int const philo_num,
+				void *(*f)(void *arg));
 t_philo		*get_philo(t_philo const *philos, unsigned int const philo_id);
 void		free_philos(t_philo *master);
 
