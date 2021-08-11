@@ -6,28 +6,28 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:29:45 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/11 13:40:41 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/11 18:38:31 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <pthread.h>
 #include <stdlib.h>
-#include <philosophers.h>
+#include <table.h>
 #include <timestamps.h>
 
-t_philo	*get_philo(t_philo const *philos, unsigned int const philo_id)
+t_philo	*get_philo(t_philo *philos, size_t const philo_id)
 {
-	return ((t_philo *)(philos + philo_id - 1));
+	return (philos + philo_id - 1);
 }
 
-t_philo	*create_philos(unsigned int const philo_num, void *(*callb)(void *arg))
+t_philo	*create_philos(size_t const philo_num, void *(*callb)(void *arg))
 {
-	t_philo			*philos;
-	t_philo			*current_philo;
-	unsigned int	current_philo_id;
+	t_philo	*philos;
+	t_philo	*current_philo;
+	size_t	current_philo_id;
 
 	philos = malloc(sizeof(t_philo) * philo_num);
-	if (!philos)
+	if (philos == FAILED)
 		return (NULL);
 	initialize_timestamp(philo_num, philos);
 	current_philo_id = 1;
@@ -35,7 +35,12 @@ t_philo	*create_philos(unsigned int const philo_num, void *(*callb)(void *arg))
 	{
 		current_philo = get_philo(philos, current_philo_id);
 		current_philo->id = current_philo_id;
-		pthread_create(&(current_philo->thread), NULL, callb, current_philo);
+		if (pthread_create(&(current_philo->thread), NULL, callb,
+				current_philo) != false)
+		{
+			free(philos);
+			return (NULL);
+		}
 		current_philo_id++;
 	}
 	return (philos);

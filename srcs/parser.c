@@ -6,11 +6,11 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:30:15 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/04 19:30:16 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/11 19:23:07 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include <table.h>
 #include <utils.h>
 
 static t_bool	validate_argument(char const *str)
@@ -46,11 +46,14 @@ t_bool	parser_validate(int argc, char **argv)
 	return (true);
 }
 
-void	parser_fetch(t_params *input, char **argv)
+t_params	parser_fetch(char **argv)
 {
-	input->philos = ft_strtoul(*(argv + 1));
-	input->die = ft_strtoul(*(argv + 2));
-	input->eat = ft_strtoul(*(argv + 3));
-	input->sleep = ft_strtoul(*(argv + 4));
-	input->amount = ft_strtoul(*(argv + 5));
+	t_params	input;
+
+	input.philos = ft_strtoul(*(argv + 1));
+	input.die = ft_strtoul(*(argv + 2));
+	input.eat = ft_strtoul(*(argv + 3));
+	input.sleep = ft_strtoul(*(argv + 4));
+	input.amount = ft_strtoul(*(argv + 5));
+	return (input);
 }

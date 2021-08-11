@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <philosophers.h>
+#include <table.h>
 #include <timestamps.h>
 #include <stdio.h>
 #include <unistd.h>

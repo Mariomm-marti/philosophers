@@ -6,13 +6,13 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/05 18:28:36 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/05 19:40:03 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/11 14:22:38 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/time.h>
 #include <timestamps.h>
-#include <philosophers.h>
+#include <table.h>
 
 t_timestamp	get_timestamp(t_timestamp const original_timestamp)
 {
@@ -25,11 +25,11 @@ t_timestamp	get_timestamp(t_timestamp const original_timestamp)
 	return (current - original_timestamp);
 }
 
-void	initialize_timestamp(unsigned int philo_num, t_philo const *philos)
+void	initialize_timestamp(size_t philo_num, t_philo const *philos)
 {
-	t_philo			*current;
-	t_timestamp		initial_timestamp;
-	unsigned int	current_philo_id;
+	t_philo		*current;
+	t_timestamp	initial_timestamp;
+	size_t		current_philo_id;
 
 	initial_timestamp = get_timestamp(0);
 	current_philo_id = 1;

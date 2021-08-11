@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include <stddef.h>
-#include <philosophers.h>
+#include <table.h>
 #include <unistd.h>
 
 unsigned long	ft_strtoul(char const *str)

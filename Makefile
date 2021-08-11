@@ -1,11 +1,14 @@
 NAME		= philo
 
-LIST		= parser.c \
-			  utils.c \
-			  init_philos.c \
-			  worker_philos.c \
-			  timestamps.c \
-			  main.c
+LIST		=	forks.c \
+				main.c \
+				parser.c \
+				parser.o \
+				philos.c \
+				timestamps.c \
+				utils.c \
+				utils.o \
+				worker_philos.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
