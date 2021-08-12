@@ -3,12 +3,11 @@ NAME		= philo
 LIST		=	forks.c \
 				main.c \
 				parser.c \
-				parser.o \
 				philos.c \
+				routine.c \
+				routine_take_forks.c \
 				timestamps.c \
-				utils.c \
-				utils.o \
-				worker_philos.c
+				utils.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
