@@ -1,6 +1,7 @@
 NAME		= philo
 
-LIST		= srcs/*.c
+LIST		= main.c \
+			  routine.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
