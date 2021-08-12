@@ -19,6 +19,21 @@ t_fork	*get_fork(t_fork *forks, size_t const fork_number)
 	return (forks + fork_number - 1);
 }
 
+void	destroy_forks(t_fork *forks, size_t const fork_number)
+{
+	t_fork	*current_fork;
+	size_t	current_fork_id;
+
+	current_fork_id = 1;
+	while (current_fork_id <= fork_number)
+	{
+		current_fork = get_fork(forks, current_fork_id);
+		pthread_mutex_destroy(current_fork);
+		current_fork_id++;
+	}
+	free(forks);
+}
+
 t_fork	*create_forks(size_t const fork_amount)
 {
 	t_fork	*forks;

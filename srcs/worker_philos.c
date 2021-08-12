@@ -17,11 +17,12 @@
 
 void	*worker(void *self)
 {
-	t_philo	*philo_self;
+	t_worker	*work;
 
-	philo_self = (t_philo *)self;
+	work = (t_worker *)self;
 	while (philo_self->thread != NULL)
 	{
+		take_forks
 	}
 	return (NULL);
 }

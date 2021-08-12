@@ -19,7 +19,7 @@
 # include <pthread.h>
 
 typedef long			t_timestamp;
-typedef pthread_mutex_t	t_fork;
+typedef pthread_mutex_t		t_fork;
 
 typedef enum e_bool
 {
@@ -46,17 +46,18 @@ typedef struct s_params
 typedef struct s_worker
 {
 	t_params	params;
-	t_philo		*philos;
 	t_fork		*forks;
+	t_philo		*philos;
+	pthread_mutex_t	out;
 }	t_worker;
 
 void		*worker(void *self);
 
 t_fork		*create_forks(size_t const fork_amount);
 t_fork		*get_fork(t_fork *forks, size_t const fork_number);
+void		destroy_forks(t_fork *forks, size_t const fork_number);
 
-t_philo		*create_philos(size_t const philo_num,
-				void *(*f)(void *arg));
+t_philo		*create_philos(size_t const philo_num, t_worker *work);
 t_philo		*get_philo(t_philo *philos, size_t const philo_id);
 
 #endif

@@ -19,17 +19,24 @@
 
 static t_bool	initialize_table(t_worker *worker)
 {
-	worker->forks = create_forks(params.philos);
-	if (worker->forks == false)
+	if (pthread_mutex_init(worker->out, NULL) != false)
 		return (false);
+	worker->forks = create_forks(worker->params.philos);
+	if (worker->forks == false)
+	{
+		pthread_mutex_destroy(worker->out);
+		return (false);
+	}
 	worker->philos = create_philos(params.philos, worker);
 	if (worker->philos == false)
 	{
-		free(worker->forks);
+		pthread_mutex_destroy(worker->out);
+		destroy_forks(worker->forks, worker->params.philos);
 		return (false);
 	}
 	return (true);
 }
+
 
 int	main(int argc, char **argv)
 {

@@ -20,7 +20,22 @@ t_philo	*get_philo(t_philo *philos, size_t const philo_id)
 	return (philos + philo_id - 1);
 }
 
-t_philo	*create_philos(size_t const philo_num, void *(*callb)(void *arg))
+void	destroy_philos(t_philo *philos, size_t const philo_num)
+{
+	t_philo	*current_philo;
+	size_t	current_philo_id;
+
+	current_philo_id = 1;
+	while (current_philo_id <= philo_num)
+	{
+		current_philo = get_philo(philos, current_philo_id);
+		pthread_join(current_philo->thread);
+		current_philo_id++;
+	}
+	free(philos);
+}
+
+t_philo	*create_philos(size_t const philo_num, t_worker *work)
 {
 	t_philo	*philos;
 	t_philo	*current_philo;
@@ -29,7 +44,7 @@ t_philo	*create_philos(size_t const philo_num, void *(*callb)(void *arg))
 	philos = malloc(sizeof(t_philo) * philo_num);
 	if (philos == FAILED)
 		return (NULL);
-	initialize_timestamp(philo_num, philos);
+	initialize_timestamp(philos, philo_num);
 	current_philo_id = 1;
 	while (current_philo_id <= philo_num)
 	{

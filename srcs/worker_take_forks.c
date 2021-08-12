@@ -1,22 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   timestamps.h                                       :+:      :+:    :+:   */
+/*   worker_take_forks.c				                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/05 18:36:57 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/11 14:23:37 by mmartin-         ###   ########.fr       */
+/*   Created: 2021/08/12 12:07:00 by mmartin-          #+#    #+#             */
+/*   Updated: 2021/08/11 14:22:38 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TIMESTAMPS_H
-# define TIMESTAMPS_H
+#include <table.h>
 
-# include <table.h>
-
-t_timestamp		get_timestamp(t_timestamp const original_timestamp);
-void			initialize_timestamp(t_philo const *philos,
-					size_t const philo_num);
-
-#endif
+void	take_forks(t_philo *

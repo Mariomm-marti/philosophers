@@ -25,7 +25,7 @@ t_timestamp	get_timestamp(t_timestamp const original_timestamp)
 	return (current - original_timestamp);
 }
 
-void	initialize_timestamp(size_t philo_num, t_philo const *philos)
+void	initialize_timestamp(t_philo const *philos, size_t philo_num)
 {
 	t_philo		*current;
 	t_timestamp	initial_timestamp;
