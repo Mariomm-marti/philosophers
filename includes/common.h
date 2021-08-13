@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:09:59 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:23:23 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # define MSG_DEAD "%ld %zu died\n"
 
 typedef size_t	t_timestamp;
+
+typedef struct s_params
+{
+
+}	t_params;
 
 t_timestamp			get_timestamp(int is_first);
 void				wrap_usleep(size_t const ms, size_t const interval);

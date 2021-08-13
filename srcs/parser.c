@@ -6,14 +6,13 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/04 19:30:15 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/11 19:23:07 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:22:56 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <table.h>
-#include <utils.h>
+#include <common.h>
 
-static t_bool	validate_argument(char const *str)
+static int	validate_argument(char const *str)
 {
 	unsigned long long	ret;
 
@@ -22,28 +21,28 @@ static t_bool	validate_argument(char const *str)
 	{
 		ret = ret * 10 + (*str - '0');
 		if (ret > MAX_TIMESTAMP)
-			return (false);
+			return (0);
 		str++;
 	}
 	if (*str)
-		return (false);
-	return (true);
+		return (0);
+	return (1);
 }
 
-t_bool	parser_validate(int argc, char **argv)
+int	parser_validate(int argc, char **argv)
 {
 	short	count;
 
 	if (argc != 5 && argc != 6)
-		return (false);
+		return (0);
 	count = 1;
 	while (*(argv + count))
 	{
 		if (!validate_argument(*(argv + count)))
-			return (false);
+			return (0);
 		count++;
 	}
-	return (true);
+	return (1);
 }
 
 t_params	parser_fetch(char **argv)
