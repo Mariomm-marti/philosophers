@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 19:08:20 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:04:39 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:12:52 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ int	main(void)
 	{
 		wrap_usleep(4000, 4);
 		all_alive = FALSE;
-		pthread_mutex_lock(mutex + 4);
 	}
 	merge_threads(threads, 4);
 	free(threads);

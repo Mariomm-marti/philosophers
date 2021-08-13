@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:35:33 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:05:43 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:11:33 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ typedef struct s_routine
 }	t_routine;
 
 void	lock_mutex(size_t const caller_id, size_t const thread_num,
-			pthread_mutex_t *mutex);
+			pthread_mutex_t *mutex, int const all_alive);
 void	unlock_mutex(size_t const caller_id, size_t const thread_num,
 			pthread_mutex_t *mutex);
 

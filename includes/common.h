@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:06:58 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:09:59 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_timestamp			get_timestamp(int is_first);
 void				wrap_usleep(size_t const ms, size_t const interval);
 
 void				print_message(size_t const philo_num, char const *message,
-						pthread_mutex_t *mutex_out);
+						int const all_alive);
 
 pthread_mutex_t		*init_mutex(size_t const mutex_num);
 t_routine			*init_routines(size_t const thread_num, int *all_alive,

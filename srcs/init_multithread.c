@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:06:52 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 17:46:41 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:14:55 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@ pthread_mutex_t	*init_mutex(size_t const mutex_num)
 	pthread_mutex_t	*mutex;
 	size_t			current_mutex;
 
-	mutex = malloc(sizeof(pthread_mutex_t) * (mutex_num + 1));
+	mutex = malloc(sizeof(pthread_mutex_t) * mutex_num);
 	if (!mutex)
 		return (NULL);
 	current_mutex = 0;
-	while (current_mutex <= mutex_num)
+	while (current_mutex < mutex_num)
 	{
 		pthread_mutex_init(mutex + current_mutex, NULL);
 		current_mutex++;

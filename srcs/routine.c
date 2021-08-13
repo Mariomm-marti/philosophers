@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:40:22 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:05:36 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:15:40 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@ void	*routine(void *arg)
 		usleep(100);
 	while (*(data->all_alive) == TRUE)
 	{
-		lock_mutex(data->caller_id, data->thread_num, data->mutex);
-		print_message(data->caller_id, MSG_EAT, data->mutex + data->thread_num);
-		wrap_usleep(100, data->thread_num);
+		lock_mutex(data->caller_id, data->thread_num, data->mutex,
+				*(data->all_alive));
+		print_message(data->caller_id, MSG_EAT, *(data->all_alive));
+		wrap_usleep(60, data->thread_num);
 		unlock_mutex(data->caller_id, data->thread_num, data->mutex);
-		print_message(data->caller_id, MSG_SLP, data->mutex + data->thread_num);
-		wrap_usleep(100, data->thread_num);
-		print_message(data->caller_id, MSG_THK, data->mutex + data->thread_num);
+		print_message(data->caller_id, MSG_SLP, *(data->all_alive));
+		wrap_usleep(60, data->thread_num);
+		print_message(data->caller_id, MSG_THK, *(data->all_alive));
 	}
 	return (NULL);
 }
