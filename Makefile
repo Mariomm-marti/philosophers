@@ -1,7 +1,11 @@
 NAME		= philo
 
-LIST		= main.c \
-			  routine.c
+LIST		=	init_multithread.c \
+				main.c \
+				routine.c \
+				routine_lock_mutex.c \
+				print_message.c \
+				timestamps.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
