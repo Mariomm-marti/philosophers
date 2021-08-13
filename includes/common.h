@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 18:24:31 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/13 19:06:58 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@
 # define TRUE 1
 # define MSG_FORK "%ld %zu has taken a fork\n"
 # define MSG_EAT "%ld %zu is eating\n"
-# define MSG_SLEEP "%ld %zu is sleeping\n"
-# define MSG_THINK "%ld %zu is thinking\n"
+# define MSG_SLP "%ld %zu is sleeping\n"
+# define MSG_THK "%ld %zu is thinking\n"
 # define MSG_DEAD "%ld %zu died\n"
 
 typedef size_t	t_timestamp;
