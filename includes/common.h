@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 17:48:51 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 22:08:18 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <pthread.h>
 # include <routine.h>
 
-# define MAX_TIMESTAMP 2147483647
+# define MAX_TIMESTAMP 20000
 # define MIN_TIMESTAMP 60
 
 # define FALSE 0
@@ -33,7 +33,7 @@ t_timestamp			get_timestamp(int is_first);
 void				wrap_usleep(size_t const ms, size_t const interval);
 
 void				print_message(size_t const philo_num, char const *message,
-						int const all_alive);
+						int *all_alive, pthread_mutex_t *mutex_out);
 
 pthread_mutex_t		*init_mutex(size_t const mutex_num);
 t_routine			*init_routines(size_t const thread_num, int *all_alive,

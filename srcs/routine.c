@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:40:22 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 18:09:46 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 22:22:56 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,21 +18,24 @@
 
 void	*routine(void *arg)
 {
-	t_routine	*data = (t_routine *)arg;
+	t_routine	*data;
 
-	if (data->caller_id % 2 != 0)
-		usleep(100);
+	data = (t_routine *)arg;
 	while (*(data->all_alive) == TRUE)
 	{
 		lock_mutex(data->caller_id, data->thread_num, data->mutex,
-			*(data->all_alive));
+			data->all_alive);
 		data->last_eat = get_timestamp(0);
-		print_message(data->caller_id, MSG_EAT, *(data->all_alive));
+		print_message(data->caller_id, MSG_EAT,
+			data->all_alive, data->mutex + data->thread_num);
 		wrap_usleep(data->params.eat, data->thread_num);
+		data->last_eat = get_timestamp(0);
 		unlock_mutex(data->caller_id, data->thread_num, data->mutex);
-		print_message(data->caller_id, MSG_SLP, *(data->all_alive));
+		print_message(data->caller_id, MSG_SLP,
+			data->all_alive, data->mutex + data->thread_num);
 		wrap_usleep(data->params.sleep, data->thread_num);
-		print_message(data->caller_id, MSG_THK, *(data->all_alive));
+		print_message(data->caller_id, MSG_THK,
+			data->all_alive, data->mutex + data->thread_num);
 	}
 	return (NULL);
 }

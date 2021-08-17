@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:58:18 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:11:20 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 22:22:24 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,24 @@ static void	get_mutex_for_thread(size_t const caller_id,
 }
 
 void	lock_mutex(size_t const caller_id, size_t const thread_num,
-			pthread_mutex_t *mutex, int const all_alive)
+			pthread_mutex_t *mutex, int *all_alive)
 {
 	size_t	mutex_right;
 	size_t	mutex_left;
 
 	get_mutex_for_thread(caller_id, thread_num, &mutex_right, &mutex_left);
-	pthread_mutex_lock(mutex + mutex_right);
-	print_message(caller_id, MSG_FORK, all_alive);
+	if (caller_id % 2 == 0)
+	{
+		pthread_mutex_lock(mutex + mutex_right);
+		print_message(caller_id, MSG_FORK, all_alive, mutex + thread_num);
+	}
 	pthread_mutex_lock(mutex + mutex_left);
-	print_message(caller_id, MSG_FORK, all_alive);
+	print_message(caller_id, MSG_FORK, all_alive, mutex + thread_num);
+	if (caller_id % 2 != 0)
+	{
+		pthread_mutex_lock(mutex + mutex_right);
+		print_message(caller_id, MSG_FORK, all_alive, mutex + thread_num);
+	}
 }
 
 void	unlock_mutex(size_t const caller_id, size_t const thread_num,

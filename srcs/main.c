@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 19:08:20 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 17:57:52 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 22:24:38 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,25 +30,30 @@ static void	merge_threads(pthread_t *threads, size_t const thread_num)
 	}
 }
 
-static int	verify_philos_alive(t_routine const *routines,
-		t_timestamp const time_to_die)
+static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
+		t_routine *routines)
 {
-	t_timestamp const	current_time = get_timestamp(0);
-	size_t const		total_routines = routines->thread_num;
-	size_t				current;
+	t_timestamp	trn;
+	t_timestamp	total;
+	int			count;
 
-	current = 0;
-	while (current < total_routines)
+	while (*all_alive == TRUE)
 	{
-		if (current_time - (routines + current)->last_eat > time_to_die)
+		trn = get_timestamp(0);
+		count = 0;
+		while (count < params.philos)
 		{
-			printf("RIP %zu: time elapsed %ld\n", current,
-					current_time - (routines + current)->last_eat);
-			return (FALSE);
+			pthread_mutex_lock(mutex + params.philos);
+			total = trn - (routines + count)->last_eat;
+			if (total > params.die && *all_alive == TRUE)
+			{
+				printf("%ld %zu died\n", get_timestamp(0), (routines + count)->caller_id + 1);
+				*all_alive = FALSE;
+			}
+			pthread_mutex_unlock(mutex + params.philos);
+			count++;
 		}
-		current++;
 	}
-	return (TRUE);
 }
 
 int	main(int argc, char **argv)
@@ -75,12 +80,7 @@ int	main(int argc, char **argv)
 	routines = init_routines(params.philos, &all_alive, params, mutex);
 	get_timestamp(1);
 	threads = init_threads(params.philos, routines);
-	while (all_alive == TRUE)
-	{
-		wrap_usleep(20, params.philos);
-		if (verify_philos_alive(routines, params.die) == FALSE)
-			all_alive = FALSE;
-	}
+	main_loop(&all_alive, params, mutex, routines);
 	merge_threads(threads, params.philos);
 	free(threads);
 	free(routines);
