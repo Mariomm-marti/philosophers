@@ -19,7 +19,7 @@
 
 static void	merge_threads(pthread_t *threads, size_t const thread_num)
 {
-	size_t current_thread;
+	size_t	current_thread;
 
 	current_thread = 0;
 	while (current_thread < thread_num)
@@ -27,6 +27,26 @@ static void	merge_threads(pthread_t *threads, size_t const thread_num)
 		pthread_join(*(threads + current_thread), NULL);
 		current_thread++;
 	}
+}
+
+static int	verify_philos_alive(t_routine const *routines,
+		t_timestamp const eat_period)
+{
+	size_t const	total_routines = routines->thread_num;
+	size_t			current;
+
+	current = 0;
+	while (current < total_routines)
+	{
+		if (get_timestamp(0) - (routines + current)->last_eat > eat_period)
+		{
+			printf("RIP %zu: time elapsed %ld\n", current,
+					get_timestamp(0) - (routines + current)->last_eat);
+			return (FALSE);
+		}
+		current++;
+	}
+	return (TRUE);
 }
 
 int	main(void)
@@ -37,16 +57,17 @@ int	main(void)
 	pthread_t		*threads;
 
 	all_alive = TRUE;
-	mutex = init_mutex(4);
-	routines = init_routines(4, &all_alive, mutex);
+	mutex = init_mutex(200);
+	routines = init_routines(200, &all_alive, mutex);
 	get_timestamp(1);
-	threads = init_threads(4, routines);
+	threads = init_threads(200, routines);
 	while (all_alive == TRUE)
 	{
-		wrap_usleep(4000, 4);
-		all_alive = FALSE;
+		wrap_usleep(20, 200);
+		if (verify_philos_alive(routines, 130) == FALSE)
+			all_alive = FALSE;
 	}
-	merge_threads(threads, 4);
+	merge_threads(threads, 200);
 	free(threads);
 	free(routines);
 	free(mutex);

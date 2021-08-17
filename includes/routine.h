@@ -21,6 +21,7 @@ typedef struct s_routine
 	size_t			caller_id;
 	size_t			thread_num;
 	int				*all_alive;
+	long			last_eat;
 	pthread_mutex_t	*mutex;
 }	t_routine;
 

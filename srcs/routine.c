@@ -18,14 +18,15 @@
 
 void	*routine(void *arg)
 {
-	t_routine const	*data = (t_routine *)arg;
+	t_routine	*data = (t_routine *)arg;
 
 	if (data->caller_id % 2 != 0)
 		usleep(100);
 	while (*(data->all_alive) == TRUE)
 	{
 		lock_mutex(data->caller_id, data->thread_num, data->mutex,
-				*(data->all_alive));
+			*(data->all_alive));
+		data->last_eat = get_timestamp(0);
 		print_message(data->caller_id, MSG_EAT, *(data->all_alive));
 		wrap_usleep(60, data->thread_num);
 		unlock_mutex(data->caller_id, data->thread_num, data->mutex);

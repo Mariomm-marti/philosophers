@@ -26,11 +26,6 @@
 
 typedef size_t	t_timestamp;
 
-typedef struct s_params
-{
-
-}	t_params;
-
 t_timestamp			get_timestamp(int is_first);
 void				wrap_usleep(size_t const ms, size_t const interval);
 

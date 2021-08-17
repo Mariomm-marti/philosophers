@@ -12,6 +12,19 @@
 
 #include <common.h>
 
+static long	ft_strtoul(char const *str)
+{
+	long	num;
+
+	num = 0;
+	while (*str)
+	{
+		num = num * 10 + (*str - '0');
+		str++;
+	}
+	return (0);
+}
+
 static int	validate_argument(char const *str)
 {
 	unsigned long long	ret;
