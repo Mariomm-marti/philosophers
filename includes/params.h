@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_message.c                                    :+:      :+:    :+:   */
+/*   params.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/13 17:48:57 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 17:52:32 by mmartin-         ###   ########.fr       */
+/*   Created: 2021/08/17 17:11:52 by mmartin-          #+#    #+#             */
+/*   Updated: 2021/08/17 17:27:56 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <pthread.h>
-#include <stdio.h>
-#include <common.h>
+#ifndef PARAMS_H
+# define PARAMS_H
 
-void	print_message(size_t const philo_num, char const *message,
-		int const all_alive)
+typedef size_t	t_timestamp;
+
+typedef struct s_params
 {
-	if (!all_alive)
-		return ;
-	printf(message, get_timestamp(0), philo_num + 1);
-}
+	int			philos;
+	int			amount;
+	t_timestamp	die;
+	t_timestamp	eat;
+	t_timestamp	sleep;
+}	t_params;
+
+int			parser_validate(int argc, char **argv);
+t_params	parser_fetch(char **argv);
+
+#endif

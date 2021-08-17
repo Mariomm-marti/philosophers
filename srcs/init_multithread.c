@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:06:52 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:14:55 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:46:20 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ pthread_mutex_t	*init_mutex(size_t const mutex_num)
 }
 
 t_routine	*init_routines(size_t const thread_num, int *all_alive,
-		pthread_mutex_t *mutex)
+		t_params const params, pthread_mutex_t *mutex)
 {
 	t_routine	*new_routines;
 	size_t		current_routine;
@@ -48,6 +48,8 @@ t_routine	*init_routines(size_t const thread_num, int *all_alive,
 		(new_routines + current_routine)->caller_id = current_routine;
 		(new_routines + current_routine)->thread_num = thread_num;
 		(new_routines + current_routine)->all_alive = all_alive;
+		(new_routines + current_routine)->params = params;
+		(new_routines + current_routine)->last_eat = 0;
 		(new_routines + current_routine)->mutex = mutex;
 		current_routine++;
 	}

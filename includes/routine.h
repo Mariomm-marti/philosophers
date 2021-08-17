@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:35:33 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:11:33 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:39:53 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stddef.h>
 # include <pthread.h>
+# include <params.h>
 
 typedef struct s_routine
 {
@@ -22,6 +23,7 @@ typedef struct s_routine
 	size_t			thread_num;
 	int				*all_alive;
 	long			last_eat;
+	t_params		params;
 	pthread_mutex_t	*mutex;
 }	t_routine;
 

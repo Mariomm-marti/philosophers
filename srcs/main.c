@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 19:08:20 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:21:55 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 17:57:52 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <unistd.h>
 #include <routine.h>
 #include <common.h>
+#include <params.h>
 
 static void	merge_threads(pthread_t *threads, size_t const thread_num)
 {
@@ -30,18 +31,19 @@ static void	merge_threads(pthread_t *threads, size_t const thread_num)
 }
 
 static int	verify_philos_alive(t_routine const *routines,
-		t_timestamp const eat_period)
+		t_timestamp const time_to_die)
 {
-	size_t const	total_routines = routines->thread_num;
-	size_t			current;
+	t_timestamp const	current_time = get_timestamp(0);
+	size_t const		total_routines = routines->thread_num;
+	size_t				current;
 
 	current = 0;
 	while (current < total_routines)
 	{
-		if (get_timestamp(0) - (routines + current)->last_eat > eat_period)
+		if (current_time - (routines + current)->last_eat > time_to_die)
 		{
 			printf("RIP %zu: time elapsed %ld\n", current,
-					get_timestamp(0) - (routines + current)->last_eat);
+					current_time - (routines + current)->last_eat);
 			return (FALSE);
 		}
 		current++;
@@ -49,25 +51,37 @@ static int	verify_philos_alive(t_routine const *routines,
 	return (TRUE);
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	int				all_alive;
+	t_params		params;
 	pthread_mutex_t	*mutex;
 	t_routine		*routines;
 	pthread_t		*threads;
 
 	all_alive = TRUE;
-	mutex = init_mutex(200);
-	routines = init_routines(200, &all_alive, mutex);
+	if (parser_validate(argc, argv) == FALSE)
+	{
+		printf("Error: invalid arguments\n");
+		return (1);
+	}
+	params = parser_fetch(argv);
+	if (params.philos == 1)
+	{
+		printf("0 1 died\n");
+		return (0);
+	}
+	mutex = init_mutex(params.philos);
+	routines = init_routines(params.philos, &all_alive, params, mutex);
 	get_timestamp(1);
-	threads = init_threads(200, routines);
+	threads = init_threads(params.philos, routines);
 	while (all_alive == TRUE)
 	{
-		wrap_usleep(20, 200);
-		if (verify_philos_alive(routines, 130) == FALSE)
+		wrap_usleep(20, params.philos);
+		if (verify_philos_alive(routines, params.die) == FALSE)
 			all_alive = FALSE;
 	}
-	merge_threads(threads, 200);
+	merge_threads(threads, params.philos);
 	free(threads);
 	free(routines);
 	free(mutex);

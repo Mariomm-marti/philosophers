@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:40:22 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/13 19:15:40 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/17 18:09:46 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ void	*routine(void *arg)
 			*(data->all_alive));
 		data->last_eat = get_timestamp(0);
 		print_message(data->caller_id, MSG_EAT, *(data->all_alive));
-		wrap_usleep(60, data->thread_num);
+		wrap_usleep(data->params.eat, data->thread_num);
 		unlock_mutex(data->caller_id, data->thread_num, data->mutex);
 		print_message(data->caller_id, MSG_SLP, *(data->all_alive));
-		wrap_usleep(60, data->thread_num);
+		wrap_usleep(data->params.sleep, data->thread_num);
 		print_message(data->caller_id, MSG_THK, *(data->all_alive));
 	}
 	return (NULL);

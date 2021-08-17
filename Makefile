@@ -5,7 +5,8 @@ LIST		=	init_multithread.c \
 				routine.c \
 				routine_lock_mutex.c \
 				print_message.c \
-				timestamps.c
+				timestamps.c \
+				parser.c
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
