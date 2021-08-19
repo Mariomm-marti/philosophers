@@ -16,6 +16,17 @@
 #include <routine.h>
 #include <common.h>
 
+static void	routine_eat(t_routine *data)
+{
+	lock_mutex(data->caller_id, data->thread_num, data->mutex,
+		data->all_alive);
+	data->last_eat = get_timestamp(0);
+	print_message(data->caller_id, MSG_EAT,
+		data->all_alive, data->mutex + data->thread_num);
+	wrap_usleep(data->params.eat, data->thread_num);
+	unlock_mutex(data->caller_id, data->thread_num, data->mutex);
+}
+
 void	*routine(void *arg)
 {
 	t_routine	*data;
@@ -23,13 +34,7 @@ void	*routine(void *arg)
 	data = (t_routine *)arg;
 	while (*(data->all_alive) == TRUE)
 	{
-		lock_mutex(data->caller_id, data->thread_num, data->mutex,
-			data->all_alive);
-		data->last_eat = get_timestamp(0);
-		print_message(data->caller_id, MSG_EAT,
-			data->all_alive, data->mutex + data->thread_num);
-		wrap_usleep(data->params.eat, data->thread_num);
-		unlock_mutex(data->caller_id, data->thread_num, data->mutex);
+		routine_eat(data);
 		print_message(data->caller_id, MSG_SLP,
 			data->all_alive, data->mutex + data->thread_num);
 		wrap_usleep(data->params.sleep, data->thread_num);
