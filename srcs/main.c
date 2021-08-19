@@ -37,8 +37,10 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 	t_timestamp	total;
 	int			count;
 
+	wrap_usleep(100, params.philos);
 	while (*all_alive == TRUE)
 	{
+		wrap_usleep(10, params.philos);
 		trn = get_timestamp(0);
 		count = 0;
 		while (count < params.philos)
@@ -54,7 +56,6 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 			pthread_mutex_unlock(mutex + params.philos);
 			count++;
 		}
-		wrap_usleep(10, params.philos);
 	}
 }
 
