@@ -10,7 +10,7 @@ LIST		=	init_multithread.c \
 SRCS		= $(addprefix srcs/,$(LIST))
 OBJS		= $(SRCS:.c=.o)
 
-CFLAGS		= -Wall -Werror -Wextra -I includes/
+CFLAGS		= -Wall -Werror -Wextra -O3 -I includes/
 
 %.o:		%.c
 			@clang $(CFLAGS) -c $< -o $@

@@ -29,7 +29,6 @@ void	*routine(void *arg)
 		print_message(data->caller_id, MSG_EAT,
 			data->all_alive, data->mutex + data->thread_num);
 		wrap_usleep(data->params.eat, data->thread_num);
-		data->last_eat = get_timestamp(0);
 		unlock_mutex(data->caller_id, data->thread_num, data->mutex);
 		print_message(data->caller_id, MSG_SLP,
 			data->all_alive, data->mutex + data->thread_num);

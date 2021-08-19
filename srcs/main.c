@@ -53,6 +53,7 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 			pthread_mutex_unlock(mutex + params.philos);
 			count++;
 		}
+		wrap_usleep(10, params.philos);
 	}
 }
 
@@ -73,7 +74,9 @@ int	main(int argc, char **argv)
 	params = parser_fetch(argv);
 	if (params.philos == 1)
 	{
-		printf("0 1 died\n");
+		printf("0 1 has taken a fork\n");
+		wrap_usleep(params.die, 1);
+		printf("%zu 1 died\n", params.die);
 		return (0);
 	}
 	mutex = init_mutex(params.philos);
