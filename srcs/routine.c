@@ -16,7 +16,7 @@
 #include <routine.h>
 #include <common.h>
 
-static void	routine_eat(t_routine *data)
+static inline void	routine_eat(t_routine *data)
 {
 	lock_mutex(data->caller_id, data->thread_num, data->mutex,
 		data->all_alive);
@@ -46,11 +46,8 @@ void	*routine(void *arg)
 			data->all_alive, data->mutex + data->thread_num);
 		count++;
 	}
-	if (count + 1 == data->params.amount)
-	{
-		print_message(data->caller_id, MSG_EATF,
-			data->all_alive, data->mutex + data->thread_num);
-		data->last_eat = MAX_TIMESTAMP;
-	}
+	if (count + 1 != data->params.amount)
+		return (NULL);
+	data->last_eat = MAX_TIMESTAMP;
 	return (NULL);
 }

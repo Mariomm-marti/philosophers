@@ -26,7 +26,6 @@
 # define MSG_SLP "%ld %zu is sleeping\n"
 # define MSG_THK "%ld %zu is thinking\n"
 # define MSG_DEAD "%ld %zu died\n"
-# define MSG_EATF "%ld %zu finished eating\n"
 
 typedef size_t	t_timestamp;
 
