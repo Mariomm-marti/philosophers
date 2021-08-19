@@ -47,7 +47,8 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 			total = trn - (routines + count)->last_eat;
 			if (total > params.die && *all_alive == TRUE)
 			{
-				printf("%ld %zu died\n", get_timestamp(0), (routines + count)->caller_id + 1);
+				printf("%ld %zu died\n", get_timestamp(0),
+					(routines + count)->caller_id + 1);
 				*all_alive = FALSE;
 			}
 			pthread_mutex_unlock(mutex + params.philos);
@@ -73,12 +74,7 @@ int	main(int argc, char **argv)
 	}
 	params = parser_fetch(argv);
 	if (params.philos == 1)
-	{
-		printf("0 1 has taken a fork\n");
-		wrap_usleep(params.die, 1);
-		printf("%zu 1 died\n", params.die);
-		return (0);
-	}
+		return (!!printf("0 1 has taken a fork\n%zu 1 died\n", params.die));
 	mutex = init_mutex(params.philos);
 	routines = init_routines(params.philos, &all_alive, params, mutex);
 	get_timestamp(1);
@@ -88,6 +84,5 @@ int	main(int argc, char **argv)
 	free(threads);
 	free(routines);
 	free(mutex);
-	system("leaks philo");
 	return (0);
 }
