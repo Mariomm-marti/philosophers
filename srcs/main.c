@@ -30,7 +30,7 @@ static void	merge_threads(pthread_t *threads, size_t const thread_num)
 	}
 }
 
-static int	remain_feeding(t_routine *routines, int thread_num)
+static inline int	remain_feeding(t_routine *routines, int thread_num)
 {
 	int	count;
 	int	i;
@@ -46,11 +46,25 @@ static int	remain_feeding(t_routine *routines, int thread_num)
 	return (count != thread_num);
 }
 
+static inline void	mark_dead(t_timestamp const current_time,
+	t_routine const *routine, int *all_alive, t_params const *params)
+{
+	t_timestamp const	total_elapse = current_time - routine->last_eat;
+
+	if (total_elapse <= params->die)
+		return ;
+	if (*all_alive == FALSE)
+		return ;
+	if (routine->last_eat == MAX_TIMESTAMP)
+		return ;
+	printf("%ld %zu died\n", get_timestamp(0), routine->caller_id + 1);
+	*all_alive = FALSE;
+}
+
 static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 		t_routine *routines)
 {
 	t_timestamp	trn;
-	t_timestamp	total;
 	int			count;
 	int			skip;
 
@@ -62,15 +76,8 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 		skip = 0;
 		while (count < params.philos)
 		{
-			total = trn - (routines + count)->last_eat;
 			pthread_mutex_lock(mutex + params.philos);
-			if (total > params.die && *all_alive == TRUE
-				&& (routines + count)->last_eat != MAX_TIMESTAMP)
-			{
-				printf("%ld %zu died\n", get_timestamp(0),
-					(routines + count)->caller_id + 1);
-				*all_alive = FALSE;
-			}
+			mark_dead(trn, (routines + count), all_alive, &params);
 			pthread_mutex_unlock(mutex + params.philos);
 			count++;
 		}
