@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 19:08:20 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 22:24:38 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/19 21:07:07 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,24 +30,42 @@ static void	merge_threads(pthread_t *threads, size_t const thread_num)
 	}
 }
 
+static int	remain_feeding(t_routine *routines, int thread_num)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (i < thread_num)
+	{
+		if ((routines + i)->last_eat == MAX_TIMESTAMP)
+			count++;
+		i++;
+	}
+	return (count != thread_num);
+}
+
 static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 		t_routine *routines)
 {
 	t_timestamp	trn;
 	t_timestamp	total;
 	int			count;
+	int			skip;
 
-	wrap_usleep(100, params.philos);
-	while (*all_alive == TRUE)
+	wrap_usleep(60, params.philos);
+	while (*all_alive == TRUE && remain_feeding(routines, params.philos))
 	{
-		wrap_usleep(10, params.philos);
 		trn = get_timestamp(0);
 		count = 0;
+		skip = 0;
 		while (count < params.philos)
 		{
-			pthread_mutex_lock(mutex + params.philos);
 			total = trn - (routines + count)->last_eat;
-			if (total > params.die && *all_alive == TRUE)
+			pthread_mutex_lock(mutex + params.philos);
+			if (total > params.die && *all_alive == TRUE
+				&& (routines + count)->last_eat != MAX_TIMESTAMP)
 			{
 				printf("%ld %zu died\n", get_timestamp(0),
 					(routines + count)->caller_id + 1);
@@ -56,6 +74,7 @@ static void	main_loop(int *all_alive, t_params params, pthread_mutex_t *mutex,
 			pthread_mutex_unlock(mutex + params.philos);
 			count++;
 		}
+		wrap_usleep(10, params.philos);
 	}
 }
 

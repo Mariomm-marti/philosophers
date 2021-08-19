@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/12 18:40:22 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 22:22:56 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/19 21:02:14 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,16 +30,27 @@ static void	routine_eat(t_routine *data)
 void	*routine(void *arg)
 {
 	t_routine	*data;
+	int			count;
 
 	data = (t_routine *)arg;
+	count = 0;
 	while (*(data->all_alive) == TRUE)
 	{
 		routine_eat(data);
+		if (count + 1 == data->params.amount)
+			break ;
 		print_message(data->caller_id, MSG_SLP,
 			data->all_alive, data->mutex + data->thread_num);
 		wrap_usleep(data->params.sleep, data->thread_num);
 		print_message(data->caller_id, MSG_THK,
 			data->all_alive, data->mutex + data->thread_num);
+		count++;
+	}
+	if (count + 1 == data->params.amount)
+	{
+		print_message(data->caller_id, MSG_EATF,
+			data->all_alive, data->mutex + data->thread_num);
+		data->last_eat = MAX_TIMESTAMP;
 	}
 	return (NULL);
 }

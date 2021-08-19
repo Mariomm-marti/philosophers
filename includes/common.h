@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/17 22:08:18 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/19 20:56:48 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # define MSG_SLP "%ld %zu is sleeping\n"
 # define MSG_THK "%ld %zu is thinking\n"
 # define MSG_DEAD "%ld %zu died\n"
+# define MSG_EATF "%ld %zu finished eating\n"
 
 typedef size_t	t_timestamp;
 
