@@ -45,6 +45,8 @@ static int	validate_argument(char const *str, int force_minskip)
 		return (0);
 	if (force_minskip == FALSE && ret < MIN_TIMESTAMP)
 		return (0);
+	if (force_minskip == TRUE && ret == 0)
+		return (0);
 	return (1);
 }
 
@@ -57,7 +59,7 @@ int	parser_validate(int argc, char **argv)
 	count = 1;
 	while (*(argv + count))
 	{
-		if (!validate_argument(*(argv + count), count == 1))
+		if (!validate_argument(*(argv + count), count == 1 || count == 5))
 			return (0);
 		count++;
 	}
@@ -72,6 +74,8 @@ t_params	parser_fetch(char **argv)
 	input.die = ft_stozu(*(argv + 2));
 	input.eat = ft_stozu(*(argv + 3));
 	input.sleep = ft_stozu(*(argv + 4));
-	input.amount = ft_stozu(*(argv + 5));
+	input.amount = -1;
+	if (*(argv + 5))
+		input.amount = ft_stozu(*(argv + 5));
 	return (input);
 }
