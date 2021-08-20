@@ -6,7 +6,7 @@
 /*   By: mmartin- <mmartin-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 16:13:06 by mmartin-          #+#    #+#             */
-/*   Updated: 2021/08/19 20:56:48 by mmartin-         ###   ########.fr       */
+/*   Updated: 2021/08/20 13:41:05 by mmartin-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # include <pthread.h>
 # include <routine.h>
 
-# define MAX_TIMESTAMP 20000
-# define MIN_TIMESTAMP 60
+# define MAX_TIMESTAMP 2147483647
+# define MIN_TIMESTAMP 0
 
 # define FALSE 0
 # define TRUE 1
