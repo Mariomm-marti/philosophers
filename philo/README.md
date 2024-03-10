@@ -1,2 +1,0 @@
-# philosophers
-# Threading introduction
